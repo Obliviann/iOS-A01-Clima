@@ -10,19 +10,12 @@ import UIKit
 class WeatherDataModel {
 
     //Declare your model variables here
-    var temp : Double?
-    var city : String?
-    var cond : Int?    //optional 1. String
+    var temp : Int = 0
+    var city : String = ""
+    var cond : Int = 0   //optional 1. String
+    var weatherIcon : String = ""
     //var JSONStandard : String?
     
-    //construcor de WeatherDataModel, initializer
-    convenience init(temp :Double, city: String, conditionn:Int) {
-        self.init()
-        self.temp = temp
-        self.city = city
-        self.cond = conditionn
-        //optional 2. updateWeatherIcon(condition : conditionn)
-    }
 
     //This method turns a condition code into the name of the weather condition image
     

@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 //Write the protocol declaration here: Un contrato, el delegate nos vale para que no haga nada hasta que le llegue la info
 //Siempre que llamamos algo de fuera, es asíncrono
 //0.creamos nuestro protocolo (className+Delegate), nuestro delegate, con tantas func dentro como necesitemos
@@ -41,7 +40,6 @@ class ChangeCityViewController: UIViewController {
         self.dismiss(animated:true, completion: nil)
         
     }
-    
     
     //This is the IBAction that gets called when the user taps the back button. It dismisses the ChangeCityViewController - cada vez que cambiamos de venta creamos una nueva inst
     @IBAction func backButtonPressed(_ sender: AnyObject) {

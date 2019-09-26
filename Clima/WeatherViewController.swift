@@ -24,7 +24,7 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate, Chang
 
     //3. Declare instance variables here
     let locManager = CLLocationManager()
-    var currentWeatherData : WeatherDataModel?  //guardaremos la resp del request
+    let currentWeatherData = WeatherDataModel()  //guardaremos la resp del request
     
     //Pre-linked IBOutlets
     @IBOutlet weak var weatherIcon: UIImageView!
@@ -60,7 +60,6 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate, Chang
                 print("Weather acquired!")
                 
                 
-                
                 //if - para desempaquetar el valor de respuesta.data
                 if let resp = respuesta.data{       //var
                    self.updateWeatherData(responss: resp) //llamamos a nuestra func
@@ -82,11 +81,14 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate, Chang
         //8. parseamos
                         //metodo de Swifty con param data de tipo Data
         let json = try! JSON(data: responss)
-        //TODO: 9. le pasamos los datos del json a nuestro constructor
+        //TODO: 9. le pasamos los datos del json a los att
         //currentWeatherData
+        currentWeatherData.city = json["name"].stringValue
+        currentWeatherData.temp = json["main"]["temp"].intValue - 273
+        currentWeatherData.weatherIcon = currentWeatherData.updateWeatherIcon(condition: json["weather"][0]["id"].intValue)
         print(json)
         //llamo a la funcion para actualizar la vista
-        updateUIWithWeatherData(weatherData: json)
+        updateUIWithWeatherData()
     }
     
     
@@ -94,12 +96,14 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate, Chang
     //MARK: - UI Updates
     /***************************************************************/
     
+    //
+    
     //9. Write the updateUIWithWeatherData method here:
-    //uso los campos del json para poner datos en la vista
-    func updateUIWithWeatherData(weatherData: JSON){
-//        cityLabel.text = weatherData.city
-//        temperatureLabel.text = "\(weatherData.temperature)°"
-//        weatherIcon.image = UIImage(named: weatherData.weatherIconName!)
+    //uso los campos del json para poner datos en la vista llenando el WeatherDataModel
+    func updateUIWithWeatherData(){
+        cityLabel.text = currentWeatherData.city
+        temperatureLabel.text = "\(currentWeatherData.temp)°"
+        weatherIcon.image = UIImage(named: currentWeatherData.weatherIcon)
     }
     
     
